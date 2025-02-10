@@ -41,7 +41,7 @@ func main() {
 }
 
 func handleExit(args []string) {
-	exitCode, err := strconv.Atoi(args[1])
+	exitCode, err := strconv.Atoi(args[0])
 	if err != nil {
 		fmt.Fprintln(os.Stdout, "error while processing error code."+err.Error())
 	}
