@@ -42,6 +42,14 @@ func main() {
 					fmt.Printf("%s: not found\n", cmds[1])
 				}
 			}
+		case "pwd":
+			command := exec.Command(cmds[0], cmds[1:]...)
+			command.Stderr = os.Stderr
+			command.Stdout = os.Stdout
+			err := command.Run()
+			if err != nil {
+				fmt.Printf("%s: command not found\n", cmds[0])
+			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
