@@ -9,10 +9,12 @@ import (
 	"strings"
 )
 
-// Ensures gofmt doesn't remove the "fmt" import in stage 1 (feel free to remove this!)
-var _ = fmt.Fprint
+var Builtin [3]string
 
 func main() {
+	Builtin[0] = "exit"
+	Builtin[1] = "echo"
+	Builtin[2] = "type"
 
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
@@ -34,9 +36,28 @@ func main() {
 			handleExit(args[1:])
 		case "echo":
 			executeEcho(args[1:])
+		case "type":
+			typeCheck(args[1:])
 		default:
 			fmt.Println(command + ": command not found")
 		}
+	}
+}
+
+func typeCheck(args []string) {
+
+	isAvailable := false
+
+	for i, val := range args {
+		if val == Builtin[i] {
+			isAvailable = true
+			fmt.Printf("%v is a shell builtin", Builtin[i])
+			break
+		}
+	}
+
+	if !isAvailable {
+		fmt.Print("there is something unsual in this command. \nPlease check and try again.")
 	}
 }
 
