@@ -44,7 +44,11 @@ func main() {
 				}
 			}
 		case "pwd":
-			os.Getwd()
+			dir, err := os.Getwd()
+			if err != nil {
+				fmt.Println("found error in printing directory:" + err.Error())
+			}
+			fmt.Println(dir)
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
