@@ -54,7 +54,7 @@ func main() {
 			command.Stdout = os.Stdout
 			err := command.Run()
 			if err != nil {
-				fmt.Printf("cd: %v: No such file or directory\n", cmds[1:])
+				fmt.Fprint(os.Stdout, "$ ")
 			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
