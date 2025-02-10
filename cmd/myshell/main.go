@@ -9,12 +9,8 @@ import (
 	"strings"
 )
 
-var Builtin [3]string
-
 func main() {
-	Builtin[0] = "exit"
-	Builtin[1] = "echo"
-	Builtin[2] = "type"
+	builtin := [...]string{"exit", "echo", "type"}
 
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
@@ -37,27 +33,27 @@ func main() {
 		case "echo":
 			executeEcho(args[1:])
 		case "type":
-			typeCheck(args[1:])
+			typeCheck(builtin, args[1:])
 		default:
 			fmt.Println(command + ": command not found")
 		}
 	}
 }
 
-func typeCheck(args []string) {
+func typeCheck(builtin [3]string, args []string) {
 
 	isAvailable := false
 
-	for i, val := range args {
-		if val == Builtin[i] {
+	for _, val := range builtin {
+		if val == args[0] {
 			isAvailable = true
-			fmt.Printf("%v is a shell builtin", Builtin[i])
+			fmt.Printf("%v is a shell builtin", args[0])
 			break
 		}
 	}
 
 	if !isAvailable {
-		fmt.Print("there is something unsual in this command. \nPlease check and try again.")
+		fmt.Print("there is something unsual in this command. \nPlease check and try again.\n")
 	}
 }
 
