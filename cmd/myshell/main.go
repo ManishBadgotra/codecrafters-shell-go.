@@ -25,7 +25,7 @@ func main() {
 		}
 		command = strings.ToLower(command[:len(command)-1])
 
-		log.Println("command: received")
+		// log.Println("command: received")
 
 		switch {
 		case command == "exit":
