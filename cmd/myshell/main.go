@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -16,23 +17,32 @@ func main() {
 	for {
 		fmt.Fprint(os.Stdout, "$ ")
 		// Wait for user input
-		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		commands, err := bufio.NewReader(os.Stdin).ReadString('\n')
 		if err != nil {
-			fmt.Fprintln(os.Stdout, "error reading input:", err)
+			fmt.Fprintln(os.Stdout, "error reading input:"+err.Error())
 			log.Println(err, "found while getting command from user.")
 			// break
 			os.Exit(1)
 		}
-		command = strings.ToLower(command[:len(command)-1])
+		commands = strings.ToLower(commands[:len(commands)-1])
 
-		// log.Println("command: received")
+		args := strings.Split(commands, " ")
+		command := args[0]
 
-		switch {
-		case command == "exit":
-			os.Exit(0)
-			fmt.Println("exit 0")
+		switch command {
+		case "exit":
+			handleExit(args)
 		default:
 			fmt.Println(command + ": command not found")
 		}
 	}
+}
+
+func handleExit(args []string) {
+	exitCode, err := strconv.Atoi(args[1])
+	if err != nil {
+		fmt.Fprintln(os.Stdout, "error while processing error code."+err.Error())
+	}
+	os.Exit(exitCode)
+	// fmt.Println()
 }
