@@ -49,12 +49,8 @@ func main() {
 			}
 			fmt.Println(dir)
 		case "cd":
-			command := exec.Command(cmds[0], cmds[1:]...)
-			command.Stderr = os.Stderr
-			command.Stdout = os.Stdout
-			err := command.Run()
-			if err != nil {
-				fmt.Fprint(os.Stdout, "")
+			if err := os.Chdir(cmds[0]); err != nil {
+				fmt.Fprintf(os.Stdout, "%s: No such file or directory\n", cmds[0])
 			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
