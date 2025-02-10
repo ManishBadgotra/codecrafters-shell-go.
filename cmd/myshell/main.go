@@ -26,7 +26,7 @@ func main() {
 			fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
-			case "exit", "echo", "type":
+			case "exit", "echo", "type", "pwd":
 				fmt.Printf("%s is a shell builtin\n", cmds[1])
 			default:
 				paths := strings.Split(os.Getenv("PATH"), ":")
