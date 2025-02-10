@@ -54,7 +54,7 @@ func main() {
 			command.Stdout = os.Stdout
 			err := command.Run()
 			if err != nil {
-				fmt.Printf("%s: command not found\n", cmds[0])
+				fmt.Print("")
 			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
@@ -62,7 +62,7 @@ func main() {
 			command.Stdout = os.Stdout
 			err := command.Run()
 			if err != nil {
-				fmt.Printf("$ ")
+				fmt.Printf("%s: command not found\n", cmds[0])
 			}
 		}
 	}
