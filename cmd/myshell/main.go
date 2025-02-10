@@ -44,7 +44,7 @@ func main() {
 				}
 			}
 		case "pwd":
-			command := exec.Command(cmds[0], cmds[1:]...)
+			command := exec.Command(cmds[0])
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
 			err := command.Run()
