@@ -17,6 +17,7 @@ func main() {
 			fmt.Println(err.Error())
 		}
 		clear_in := strings.TrimRight(in, "\n")
+		clear_in = strings.ToLower(clear_in)
 		cmds := strings.Split(clear_in, " ")
 		switch cmds[0] {
 		case "exit":
