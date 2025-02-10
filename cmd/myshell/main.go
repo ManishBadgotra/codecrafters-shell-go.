@@ -41,11 +41,19 @@ func main() {
 }
 
 func typeCheck(builtin [3]string, args []string) {
+
+	isAvailable := false
+
 	for _, val := range builtin {
 		if val == args[0] {
+			isAvailable = true
 			fmt.Printf("%v is a shell builtin\n", args[0])
 			break
 		}
+	}
+
+	if !isAvailable {
+		fmt.Printf("%v: not found\n", args[0])
 	}
 }
 
