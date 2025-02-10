@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -16,12 +17,15 @@ func main() {
 		fmt.Fprint(os.Stdout, "$ ")
 		// Wait for user input
 		command, err := bufio.NewReader(os.Stdin).ReadString('\n')
-		command = strings.ToLower(command[:len(command)-1])
 		if err != nil {
 			fmt.Fprintln(os.Stdout, "error reading input:", err)
+			log.Println(err, "found while getting command from user.")
 			// break
 			os.Exit(1)
 		}
+		command = strings.ToLower(command[:len(command)-1])
+
+		log.Println("command: received")
 
 		switch {
 		case command == "exit":
