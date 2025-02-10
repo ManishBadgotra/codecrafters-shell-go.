@@ -54,7 +54,7 @@ func main() {
 			command.Stdout = os.Stdout
 			err := command.Run()
 			if err != nil {
-				fmt.Fprint(os.Stdout, "$ ")
+				fmt.Fprint(os.Stdout, "")
 			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
