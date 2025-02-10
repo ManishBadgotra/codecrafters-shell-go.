@@ -29,12 +29,10 @@ func main() {
 
 		switch {
 		case command == "exit":
+			os.Exit(0)
 			fmt.Println("exit 0")
-			// os.Exit(0)
 		default:
 			fmt.Println(command + ": command not found")
-
 		}
-
 	}
 }
