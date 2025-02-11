@@ -94,11 +94,15 @@ func RemoveSingleQuote(s string) string {
 	// 	tokenOfS = append(tokenOfS, token)
 	// 	s = s[end+1:]
 	// }
+	var newS []string
+	for i, r := range s {
+		if i == 0 || i == (len(s)-1) {
+			continue
+		}
+		newS = append(newS, string(r))
+	}
 
-	s = strings.TrimLeft(s, "'")
-	fmt.Println("----------- after lefttrim " + s)
-	s = strings.TrimRight(s, "'")
-	fmt.Println("----------- after righttrim " + s)
+	s = strings.Join(newS, "")
 
 	return s
 }
