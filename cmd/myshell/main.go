@@ -49,6 +49,11 @@ func main() {
 			}
 			fmt.Println(dir)
 		case "cd":
+			if cmds[1] == "~" {
+				if err := os.Chdir("HOME"); err != nil {
+					fmt.Fprintln(os.Stdout, "cd: HOME: No such file or directory")
+				}
+			}
 			if err := os.Chdir(cmds[1]); err != nil {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
