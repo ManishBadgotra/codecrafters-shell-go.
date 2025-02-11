@@ -61,8 +61,8 @@ func main() {
 				if i == 0 {
 					continue
 				}
-				val = strings.TrimPrefix(val, "'")
-				val = strings.TrimSuffix(val, "'")
+				val = strings.TrimPrefix(val, `'`)
+				val = strings.TrimSuffix(val, `'`)
 				cmds[i] = val
 			}
 			command := exec.Command(cmds[0], cmds[1:]...)
