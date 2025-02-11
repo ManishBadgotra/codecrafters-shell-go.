@@ -22,8 +22,8 @@ func main() {
 		case "exit":
 			os.Exit(0)
 		case "echo":
-			cmd := cmds[1]
-			fmt.Println(cmds[1])
+			cmd := strings.Join(cmds[1:], " ")
+			fmt.Println(cmd)
 			cmds[1] = RemoveSingleQuote(cmd)
 			fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
@@ -80,21 +80,6 @@ func main() {
 }
 
 func RemoveSingleQuote(s string) string {
-	// s := strings.Trim(input, "\r\n")
-	// var tokenOfS []string
-	// for {
-	// 	start := strings.Index(s, "'")
-	// 	if start == -1 {
-	// 		tokenOfS = append(tokenOfS, strings.Split()...)
-	// 		break
-	// 	}
-	// 	tokenOfS = append(tokenOfS, strings.Fields(s[:start])...)
-	// 	s = s[start+1:]
-	// 	end := strings.Index(s, "'")
-	// 	token := s[:end]
-	// 	tokenOfS = append(tokenOfS, token)
-	// 	s = s[end+1:]
-	// }
 	var newS []string
 	for i, r := range s {
 		if i == 0 || i == (len(s)-1) {
