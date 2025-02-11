@@ -80,15 +80,11 @@ func main() {
 }
 
 func RemoveSingleQuote(s string) string {
-	var newS []string
 	for i, r := range s {
 		if i == 0 || i == (len(s)-1) {
 			continue
 		}
-		newS = append(newS, string(r))
+		s = fmt.Sprintf("%v", r)
 	}
-
-	s = strings.Join(newS, "")
-
 	return s
 }
