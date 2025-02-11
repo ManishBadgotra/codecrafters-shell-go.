@@ -22,6 +22,7 @@ func main() {
 		case "exit":
 			os.Exit(0)
 		case "echo":
+			cmds = RemoveSingleQuote(cmds)
 			fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
@@ -57,13 +58,7 @@ func main() {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
 		case "cat":
-			for i, val := range cmds {
-				if i == 0 {
-					continue
-				}
-				val = strings.ReplaceAll(val, "'", "\"")
-				cmds[i] = val
-			}
+			cmds = RemoveSingleQuote(cmds)
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
@@ -79,4 +74,16 @@ func main() {
 			}
 		}
 	}
+}
+
+func RemoveSingleQuote(args []string) []string {
+	for i, val := range args {
+		if i == 0 {
+			continue
+		}
+		val = strings.ReplaceAll(val, `'`, `"`)
+		args[i] = val
+	}
+
+	return args
 }
