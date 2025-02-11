@@ -78,7 +78,7 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(input string) string {
+func RemoveSingleQuote(s string) string {
 	// s := strings.Trim(input, "\r\n")
 	// var tokenOfS []string
 	// for {
@@ -95,7 +95,7 @@ func RemoveSingleQuote(input string) string {
 	// 	s = s[end+1:]
 	// }
 
-	input = strings.Split(input, "'")[1]
+	input := strings.Split(s, "'")[1]
 	input = strings.Split(input, "'")[0]
 
 	return input
