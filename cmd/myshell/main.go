@@ -25,7 +25,7 @@ func main() {
 			fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
-			case "exit", "echo", "type", "pwd", "cd":
+			case "exit", "echo", "type", "pwd", "cd", "cat":
 				fmt.Printf("%s is a shell builtin\n", cmds[1])
 			default:
 				paths := strings.Split(os.Getenv("PATH"), ":")
@@ -56,12 +56,18 @@ func main() {
 			} else if err := os.Chdir(cmds[1]); err != nil {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
+		case "cat":
+			command := exec.Command(cmds[0], cmds[1:]...)
+			command.Stderr = os.Stderr
+			command.Stdout = os.Stdout
+			if err := command.Run(); err != nil {
+				fmt.Printf("%s: command not found\n", cmds[0])
+			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
-			err := command.Run()
-			if err != nil {
+			if err := command.Run(); err != nil {
 				fmt.Printf("%s: command not found\n", cmds[0])
 			}
 		}
