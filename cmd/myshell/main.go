@@ -76,16 +76,18 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(args *[]string) []string {
-	for i, val := range &args {
+func RemoveSingleQuote(args []string) []string {
+	for i, val := range args {
 		// if i == 0 {
 		// 	continue
 		// }
 		fmt.Println("---------------- got " + val)
-		val = strings.ReplaceAll(val, `'`, `"`)
+		val = strings.ReplaceAll(val, `'`, ``)
 		fmt.Println("---------------- changed to this " + val)
-		&args[i] = val
+		fmt.Println("before -----" + args[i])
+		args[i] = val
+		fmt.Println("after  ------" + args[i])
 	}
 
-	return *args
+	return args
 }
