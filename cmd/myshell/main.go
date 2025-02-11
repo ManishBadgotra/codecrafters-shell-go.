@@ -79,21 +79,23 @@ func main() {
 }
 
 func RemoveSingleQuote(input string) string {
-	s := strings.Trim(input, "\r\n")
-	var tokens []string
-	for {
-		start := strings.Index(s, "'")
-		if start == -1 {
-			tokens = append(tokens, strings.Fields(s)...)
-			break
-		}
-		tokens = append(tokens, strings.Fields(s[:start])...)
-		s = s[start+1:]
-		end := strings.Index(s, "'")
-		token := s[:end]
-		tokens = append(tokens, token)
-		s = s[end+1:]
-	}
+	// s := strings.Trim(input, "\r\n")
+	// var tokenOfS []string
+	// for {
+	// 	start := strings.Index(s, "'")
+	// 	if start == -1 {
+	// 		tokenOfS = append(tokenOfS, strings.Split()...)
+	// 		break
+	// 	}
+	// 	tokenOfS = append(tokenOfS, strings.Fields(s[:start])...)
+	// 	s = s[start+1:]
+	// 	end := strings.Index(s, "'")
+	// 	token := s[:end]
+	// 	tokenOfS = append(tokenOfS, token)
+	// 	s = s[end+1:]
+	// }
+
+	input = strings.Split(input, "'")[1]
 
 	return input
 }
