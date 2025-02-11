@@ -78,10 +78,12 @@ func main() {
 
 func RemoveSingleQuote(args []string) []string {
 	for i, val := range args {
+		fmt.Println("---------------- got " + val)
 		if i == 0 {
 			continue
 		}
 		val = strings.ReplaceAll(val, `'`, ``)
+		fmt.Println("---------------- changed to this " + val)
 		args[i] = val
 	}
 
