@@ -95,8 +95,10 @@ func RemoveSingleQuote(s string) string {
 	// 	s = s[end+1:]
 	// }
 
-	input := strings.TrimLeft(s, "'")
-	input = strings.TrimRight(input, "'")
+	s = strings.TrimLeft(s, "'")
+	fmt.Println("----------- after lefttrim " + s)
+	s = strings.TrimRight(s, "'")
+	fmt.Println("----------- after righttrim " + s)
 
-	return input
+	return s
 }
