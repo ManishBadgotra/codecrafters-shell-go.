@@ -58,7 +58,7 @@ func main() {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
 		case "cat":
-			cmds = RemoveSingleQuote(cmds)
+			cmds[1] = RemoveSingleQuote(cmds[1])
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
@@ -76,18 +76,22 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(args []string) []string {
-	for i, val := range args {
-		// if i == 0 {
-		// 	continue
-		// }
-		fmt.Println("---------------- got " + val)
-		val = strings.ReplaceAll(val, `'`, ``)
-		fmt.Println("---------------- changed to this " + val)
-		fmt.Println("before -----" + args[i])
-		args[i] = val
-		fmt.Println("after  ------" + args[i])
+func RemoveSingleQuote(input string) string {
+	s := strings.Trim(input, "\r\n")
+	var tokens []string
+	for {
+		start := strings.Index(s, "'")
+		if start == -1 {
+			tokens = append(tokens, strings.Fields(s)...)
+			break
+		}
+		tokens = append(tokens, strings.Fields(s[:start])...)
+		s = s[start+1:]
+		end := strings.Index(s, "'")
+		token := s[:end]
+		tokens = append(tokens, token)
+		s = s[end+1:]
 	}
 
-	return args
+	return input
 }
