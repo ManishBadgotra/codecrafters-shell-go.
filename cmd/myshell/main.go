@@ -57,6 +57,14 @@ func main() {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
 		case "cat":
+			for i, val := range cmds {
+				if i == 0 {
+					continue
+				}
+				val = strings.TrimPrefix(val, "'")
+				val = strings.TrimSuffix(val, "'")
+				cmds[i] = val
+			}
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
