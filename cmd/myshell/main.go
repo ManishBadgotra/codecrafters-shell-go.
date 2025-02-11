@@ -23,6 +23,7 @@ func main() {
 			os.Exit(0)
 		case "echo":
 			cmd := cmds[1]
+			fmt.Println(cmds[1])
 			cmds[1] = RemoveSingleQuote(cmd)
 			fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
@@ -59,8 +60,8 @@ func main() {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
 		case "cat":
-			cmd := cmds[1]
-			cmds[1] = RemoveSingleQuote(cmd)
+			// cmd := cmds[1]
+			// cmds[1] = RemoveSingleQuote(cmd)
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
