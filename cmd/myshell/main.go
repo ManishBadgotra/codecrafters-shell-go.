@@ -96,6 +96,7 @@ func RemoveSingleQuote(input string) string {
 	// }
 
 	input = strings.Split(input, "'")[1]
+	input = strings.Split(input, "'")[0]
 
 	return input
 }
