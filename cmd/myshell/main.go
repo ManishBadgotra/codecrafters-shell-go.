@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,6 +19,7 @@ func main() {
 		}
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
+		log.Println(cmds)
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
@@ -77,18 +79,9 @@ func main() {
 	}
 }
 
-// func main() {
-// 	s := strings.Split("'world hello'", "")
-
-// 	str := RemoveSingleQuote(s)
-// 	fmt.Println(str)
-// }
-
 func RemoveSingleQuote(args []string) string {
-	// log.Printf("received args list for removing single quotes ----- %v\n", args)
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
-		// log.Println("args after replacing single quotes ---- " + args[i])
 	}
 
 	s := RemoveExtraSpace(args)
@@ -128,8 +121,6 @@ func ParseArgs(args string) string {
 }
 
 func RemoveExtraSpace(args []string) string {
-	// log.Printf("received args list for removing Extra Spaces ---- %v\n", args)
-
 	var isFirstSpaceAfterLetter = true
 	var space = " "
 	for i, arg := range args {
@@ -146,8 +137,6 @@ func RemoveExtraSpace(args []string) string {
 			ans = fmt.Sprintf("%s%s", ans, a)
 		}
 		args[i] = ans
-
-		// log.Println("removed extra space from ----" + args[i])
 	}
 	return strings.Join(args, " ")
 }
