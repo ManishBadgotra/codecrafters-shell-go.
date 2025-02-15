@@ -83,12 +83,12 @@ func RemoveSingleQuote(args []string) string {
 		args[i] = strings.ReplaceAll(s, "'", "")
 	}
 
-	s := parseArgs(args[0])
+	s := RemoveExtraSpace(args[0])
 
 	return s
 }
 
-func parseArgs(args string) string {
+func ParseArgs(args string) string {
 	// get rid of all extra spaces
 	args = strings.TrimSpace(args)
 	inSingleQuotes := false
@@ -117,4 +117,24 @@ func parseArgs(args string) string {
 
 	s := fmt.Sprintf("%v", strings.Join(parsedArgs, ""))
 	return s
+}
+
+func RemoveExtraSpace(s string) string {
+	var result string
+	var isFirstSpaceAfterLetter = true
+	var space = " "
+	for _, l := range s {
+		a := string(l)
+		if a == space && isFirstSpaceAfterLetter {
+			// s[i] = l
+			isFirstSpaceAfterLetter = false
+			// fmt.Printf("'%v' --- first space\n", a)
+			continue
+		} else if a != space {
+			isFirstSpaceAfterLetter = true
+			// fmt.Printf("'%v' --- letter\n", a)
+		}
+		result = fmt.Sprintf("%v", strings.TrimSpace(a))
+	}
+	return result
 }
