@@ -27,7 +27,7 @@ func main() {
 			cmdsAltered := RemoveSingleQuote(cmds[1:])
 			cmds = cmds[:1]
 			cmds = append(cmds, cmdsAltered...)
-			fmt.Println(cmds[1:])
+			fmt.Println(strings.Join(cmds[1:], " "))
 			// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
