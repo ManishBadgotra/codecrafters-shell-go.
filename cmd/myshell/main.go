@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -87,6 +88,7 @@ func main() {
 func RemoveSingleQuote(args []string) string {
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
+		log.Println("args after replacing single quotes ---- " + args[i])
 	}
 
 	s := RemoveExtraSpace(args)
@@ -144,6 +146,8 @@ func RemoveExtraSpace(args []string) string {
 			ans = fmt.Sprintf("%v", strings.TrimSpace(a))
 		}
 		args[i] = ans
+
+		log.Println("removed extra space from ----" + args[i])
 	}
 	return strings.Join(args, " ")
 }
