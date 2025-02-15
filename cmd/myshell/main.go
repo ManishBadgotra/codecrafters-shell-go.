@@ -86,6 +86,7 @@ func main() {
 // }
 
 func RemoveSingleQuote(args []string) string {
+	log.Printf("received args list for removing single quotes ----- %v\n", args)
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
 		log.Println("args after replacing single quotes ---- " + args[i])
@@ -128,6 +129,8 @@ func ParseArgs(args string) string {
 }
 
 func RemoveExtraSpace(args []string) string {
+	log.Printf("received args list for removing Extra Spaces ---- %v\n", args)
+
 	var isFirstSpaceAfterLetter = true
 	var space = " "
 	for i, arg := range args {
@@ -137,11 +140,9 @@ func RemoveExtraSpace(args []string) string {
 			if a == space && isFirstSpaceAfterLetter {
 				// s[i] = l
 				isFirstSpaceAfterLetter = false
-				// fmt.Printf("'%v' --- first space\n", a)
 				continue
 			} else if a != space {
 				isFirstSpaceAfterLetter = true
-				// fmt.Printf("'%v' --- letter\n", a)
 			}
 			ans = fmt.Sprintf("%v", strings.TrimSpace(a))
 		}
