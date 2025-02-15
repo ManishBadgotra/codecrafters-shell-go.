@@ -16,8 +16,8 @@ func main() {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		clear_in := strings.TrimRight(in, "\n")
-		cmds := strings.Split(clear_in, " ")
+		in = strings.TrimRight(in, "\n")
+		cmds := strings.Split(in, " ")
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
@@ -83,7 +83,7 @@ func RemoveSingleQuote(args []string) string {
 		args[i] = strings.ReplaceAll(s, "'", "")
 	}
 
-	s := RemoveExtraSpace(args[0])
+	s := RemoveExtraSpace(args)
 
 	return s
 }
@@ -119,22 +119,25 @@ func ParseArgs(args string) string {
 	return s
 }
 
-func RemoveExtraSpace(s string) string {
-	var result string
+func RemoveExtraSpace(args []string) string {
 	var isFirstSpaceAfterLetter = true
 	var space = " "
-	for _, l := range s {
-		a := string(l)
-		if a == space && isFirstSpaceAfterLetter {
-			// s[i] = l
-			isFirstSpaceAfterLetter = false
-			// fmt.Printf("'%v' --- first space\n", a)
-			continue
-		} else if a != space {
-			isFirstSpaceAfterLetter = true
-			// fmt.Printf("'%v' --- letter\n", a)
+	for _, arg := range args {
+		var ans string
+		for _, l := range arg {
+			a := string(l)
+			if a == space && isFirstSpaceAfterLetter {
+				// s[i] = l
+				isFirstSpaceAfterLetter = false
+				// fmt.Printf("'%v' --- first space\n", a)
+				continue
+			} else if a != space {
+				isFirstSpaceAfterLetter = true
+				// fmt.Printf("'%v' --- letter\n", a)
+			}
+			ans = fmt.Sprintf("%v", strings.TrimSpace(a))
 		}
-		result = fmt.Sprintf("%v", strings.TrimSpace(a))
+		arg = ans
 	}
-	return result
+	return strings.Join(args, " ")
 }
