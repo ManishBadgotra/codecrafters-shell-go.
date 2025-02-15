@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,6 +19,9 @@ func main() {
 		}
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
+		if cmds[len(cmds)-1] == "test" {
+			log.Println(cmds)
+		}
 		// log.Println(cmds)
 		switch cmds[0] {
 		case "exit":
