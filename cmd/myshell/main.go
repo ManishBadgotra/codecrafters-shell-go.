@@ -18,6 +18,7 @@ func main() {
 		}
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
+		cmds = RemoveSingleQuote(cmds)
 		cmds = RemoveExtraSpace(cmds)
 		switch cmds[0] {
 		case "exit":
@@ -71,14 +72,15 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(args []string) string {
+func RemoveSingleQuote(args []string) []string {
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
 	}
 
 	s := RemoveExtraSpace(args)
 
-	return strings.Join(s, " ")
+	// return strings.Join(s, " ")
+	return s
 }
 
 func RemoveExtraSpace(args []string) []string {
