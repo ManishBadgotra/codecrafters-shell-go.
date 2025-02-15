@@ -20,7 +20,9 @@ func main() {
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
 		if cmds[len(cmds)-1] == "test" {
-			log.Println(cmds)
+			for i := range cmds {
+				log.Println(cmds[i])
+			}
 		}
 		// log.Println(cmds)
 		switch cmds[0] {
