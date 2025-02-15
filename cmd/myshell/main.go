@@ -19,7 +19,7 @@ func main() {
 		}
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
-		log.Println(cmds)
+		// log.Println(cmds)
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
