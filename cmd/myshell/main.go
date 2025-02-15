@@ -22,11 +22,11 @@ func main() {
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
-		case "echo":
-			cmdsAltered := RemoveSingleQuote(cmds[1:])
-			fmt.Println(cmdsAltered)
-			// cmds[1] = cmdsAltered
-			// fmt.Println(strings.Join(cmds[1:], " "))
+		// case "echo":
+		// 	cmdsAltered := RemoveSingleQuote(cmds[1:])
+		// 	fmt.Println(cmdsAltered)
+		// 	// cmds[1] = cmdsAltered
+		// 	// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
 			case "exit", "echo", "type", "pwd", "cd", "cat":
@@ -60,13 +60,6 @@ func main() {
 			} else if err := os.Chdir(cmds[1]); err != nil {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
-		case "cat":
-			command := exec.Command(cmds[0], cmds[1:]...)
-			command.Stderr = os.Stderr
-			command.Stdout = os.Stdout
-			if err := command.Run(); err != nil {
-				fmt.Printf("%s: command not found\n", cmds[0])
-			}
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
@@ -86,37 +79,6 @@ func RemoveSingleQuote(args []string) string {
 	s := RemoveExtraSpace(args)
 
 	return strings.Join(s, " ")
-}
-
-func ParseArgs(args string) string {
-	// get rid of all extra spaces
-	args = strings.TrimSpace(args)
-	inSingleQuotes := false
-	var parsedArgs []string
-	var argsBuilder strings.Builder
-	for i := 0; i < len(args); i++ {
-		c := args[i]
-		if c == '\'' {
-			inSingleQuotes = !inSingleQuotes
-			continue
-		}
-		if c == ' ' && !inSingleQuotes {
-			if argsBuilder.Len() > 0 {
-				parsedArgs = append(parsedArgs, argsBuilder.String())
-				argsBuilder.Reset()
-			}
-			continue
-		}
-		argsBuilder.WriteByte(c)
-	}
-	//
-	if argsBuilder.Len() > 0 {
-		parsedArgs = append(parsedArgs, argsBuilder.String())
-		argsBuilder.Reset()
-	}
-
-	s := fmt.Sprintf("%v", strings.Join(parsedArgs, ""))
-	return s
 }
 
 func RemoveExtraSpace(args []string) []string {
