@@ -78,6 +78,13 @@ func main() {
 	}
 }
 
+// func main() {
+// 	s := strings.Split("'world hello'", "")
+
+// 	str := RemoveSingleQuote(s)
+// 	fmt.Println(str)
+// }
+
 func RemoveSingleQuote(args []string) string {
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
@@ -122,7 +129,7 @@ func ParseArgs(args string) string {
 func RemoveExtraSpace(args []string) string {
 	var isFirstSpaceAfterLetter = true
 	var space = " "
-	for _, arg := range args {
+	for i, arg := range args {
 		var ans string
 		for _, l := range arg {
 			a := string(l)
@@ -137,7 +144,7 @@ func RemoveExtraSpace(args []string) string {
 			}
 			ans = fmt.Sprintf("%v", strings.TrimSpace(a))
 		}
-		arg = ans
+		args[i] = ans
 	}
 	return strings.Join(args, " ")
 }
