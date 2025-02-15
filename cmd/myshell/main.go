@@ -144,7 +144,7 @@ func RemoveExtraSpace(args []string) string {
 			} else if a != space {
 				isFirstSpaceAfterLetter = true
 			}
-			ans = fmt.Sprintf("%v", strings.TrimSpace(a))
+			ans = fmt.Sprintf("%s%s", ans, a)
 		}
 		args[i] = ans
 
