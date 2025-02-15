@@ -22,13 +22,11 @@ func main() {
 		case "exit":
 			os.Exit(0)
 		case "echo":
-			// cmd := strings.Join(cmds[1:], " ")
-			// fmt.Println(cmd)
+			// cmdAltered := parseArgs(cmds[1])
 			cmdsAltered := RemoveSingleQuote(cmds[1:])
-			cmds = cmds[:1]
-			cmds = append(cmds, cmdsAltered...)
+			cmds[1] = cmdsAltered
+
 			fmt.Println(strings.Join(cmds[1:], " "))
-			// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
 			case "exit", "echo", "type", "pwd", "cd", "cat":
@@ -63,8 +61,6 @@ func main() {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
 		case "cat":
-			// cmd := cmds[1]
-			// cmds[1] = RemoveSingleQuote(cmd)
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
 			command.Stdout = os.Stdout
@@ -82,19 +78,43 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(args []string) []string {
-	// for i, s := range args {
-	// 	var out string
-	// 	for j, r := range s {
-	// 		if j == 0 || j == (len(s)-1) {
-	// 			continue
-	// 		}
-	// 		out = fmt.Sprintf("%v", r)
-	// 	}
-	// }
-
+func RemoveSingleQuote(args []string) string {
 	for i, s := range args {
 		args[i] = strings.ReplaceAll(s, "'", "")
 	}
-	return args
+
+	s := parseArgs(args[0])
+
+	return s
+}
+
+func parseArgs(args string) string {
+	// get rid of all extra spaces
+	args = strings.TrimSpace(args)
+	inSingleQuotes := false
+	var parsedArgs []string
+	var argsBuilder strings.Builder
+	for i := 0; i < len(args); i++ {
+		c := args[i]
+		if c == '\'' {
+			inSingleQuotes = !inSingleQuotes
+			continue
+		}
+		if c == ' ' && !inSingleQuotes {
+			if argsBuilder.Len() > 0 {
+				parsedArgs = append(parsedArgs, argsBuilder.String())
+				argsBuilder.Reset()
+			}
+			continue
+		}
+		argsBuilder.WriteByte(c)
+	}
+	//
+	if argsBuilder.Len() > 0 {
+		parsedArgs = append(parsedArgs, argsBuilder.String())
+		argsBuilder.Reset()
+	}
+
+	s := fmt.Sprintf("%v", strings.Join(parsedArgs, ""))
+	return s
 }
