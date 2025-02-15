@@ -22,11 +22,10 @@ func main() {
 		case "exit":
 			os.Exit(0)
 		case "echo":
-			// cmdAltered := parseArgs(cmds[1])
 			cmdsAltered := RemoveSingleQuote(cmds[1:])
-			cmds[1] = cmdsAltered
-
-			fmt.Println(strings.Join(cmds[1:], " "))
+			fmt.Println(cmdsAltered)
+			// cmds[1] = cmdsAltered
+			// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
 			case "exit", "echo", "type", "pwd", "cd", "cat":
