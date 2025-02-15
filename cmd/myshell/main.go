@@ -94,7 +94,7 @@ func RemoveSingleQuote(args []string) []string {
 	// }
 
 	for i, s := range args {
-		args[i] = strings.ReplaceAll(s, "'", "\"")
+		args[i] = strings.ReplaceAll(s, "'", "")
 	}
 	return args
 }
