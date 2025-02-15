@@ -22,10 +22,13 @@ func main() {
 		case "exit":
 			os.Exit(0)
 		case "echo":
-			cmd := strings.Join(cmds[1:], " ")
-			fmt.Println(cmd)
-			cmds[1] = RemoveSingleQuote(cmd)
-			fmt.Println(strings.Join(cmds[1:], " "))
+			// cmd := strings.Join(cmds[1:], " ")
+			// fmt.Println(cmd)
+			cmdsAltered := RemoveSingleQuote(cmds[1:])
+			cmds = cmds[:1]
+			cmds = append(cmds, cmdsAltered...)
+			fmt.Println(cmds[1:])
+			// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
 			case "exit", "echo", "type", "pwd", "cd", "cat":
@@ -79,12 +82,19 @@ func main() {
 	}
 }
 
-func RemoveSingleQuote(s string) string {
-	for i, r := range s {
-		if i == 0 || i == (len(s)-1) {
-			continue
-		}
-		s = fmt.Sprintf("%v", r)
+func RemoveSingleQuote(args []string) []string {
+	// for i, s := range args {
+	// 	var out string
+	// 	for j, r := range s {
+	// 		if j == 0 || j == (len(s)-1) {
+	// 			continue
+	// 		}
+	// 		out = fmt.Sprintf("%v", r)
+	// 	}
+	// }
+
+	for i, s := range args {
+		args[i] = strings.ReplaceAll(s, "'", "\"")
 	}
-	return s
+	return args
 }
