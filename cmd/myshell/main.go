@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,12 +18,7 @@ func main() {
 		}
 		in = strings.TrimRight(in, "\n")
 		cmds := strings.Split(in, " ")
-		if cmds[len(cmds)-1] == "test" {
-			for i := range cmds {
-				log.Println(cmds[i])
-			}
-		}
-		// log.Println(cmds)
+		cmds = RemoveExtraSpace(cmds)
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
@@ -91,7 +85,7 @@ func RemoveSingleQuote(args []string) string {
 
 	s := RemoveExtraSpace(args)
 
-	return s
+	return strings.Join(s, " ")
 }
 
 func ParseArgs(args string) string {
@@ -125,7 +119,7 @@ func ParseArgs(args string) string {
 	return s
 }
 
-func RemoveExtraSpace(args []string) string {
+func RemoveExtraSpace(args []string) []string {
 	var isFirstSpaceAfterLetter = true
 	var space = " "
 	for i, arg := range args {
@@ -143,5 +137,5 @@ func RemoveExtraSpace(args []string) string {
 		}
 		args[i] = ans
 	}
-	return strings.Join(args, " ")
+	return args
 }
