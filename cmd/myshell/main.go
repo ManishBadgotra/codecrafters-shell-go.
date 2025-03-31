@@ -17,16 +17,17 @@ func main() {
 			fmt.Println(err.Error())
 		}
 		in = strings.TrimRight(in, "\n")
-		cmds := strings.Split(in, " ")
+		spaceIncludedArray := strings.Split(in, " ")
+		var cmds []string
+		for _, cmd := range spaceIncludedArray {
+			if cmd != "" {
+				cmds = append(cmds, cmd)
+			}
+		}
 		cmds = RemoveSingleQuote(cmds)
 		switch cmds[0] {
 		case "exit":
 			os.Exit(0)
-		// case "echo":
-		// 	cmdsAltered := RemoveSingleQuote(cmds[1:])
-		// 	fmt.Println(cmdsAltered)
-		// 	// cmds[1] = cmdsAltered
-		// 	// fmt.Println(strings.Join(cmds[1:], " "))
 		case "type":
 			switch cmds[1] {
 			case "exit", "echo", "type", "pwd", "cd", "cat":
