@@ -61,6 +61,9 @@ func main() {
 			} else if err := os.Chdir(cmds[1]); err != nil {
 				fmt.Fprintf(os.Stdout, "cd: %s: No such file or directory\n", cmds[1])
 			}
+		case "echo":
+			echo := strings.Join(cmds[1:], " ")
+			fmt.Fprintf(os.Stdout, "%v", echo)
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
