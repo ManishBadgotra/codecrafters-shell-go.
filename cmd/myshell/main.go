@@ -63,7 +63,7 @@ func main() {
 			}
 		case "echo":
 			echo := strings.Join(cmds[1:], " ")
-			fmt.Fprintf(os.Stdout, "%v", echo)
+			fmt.Fprintf(os.Stdout, "%v\n", echo)
 		default:
 			command := exec.Command(cmds[0], cmds[1:]...)
 			command.Stderr = os.Stderr
